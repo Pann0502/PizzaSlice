@@ -2,6 +2,8 @@ import hashlib   # for the SHA-256 hashes of the input files
 import uuid      # for the unique witness ID
 import yaml      # PyYAML: pip install pyyaml
 from datetime import datetime, timezone
+from pathlib import Path
+
 
 
 # ---------------------------------------------------------------
@@ -86,13 +88,13 @@ def invariant_set(meta, invariants):
 
 def dump(witness, path):
     """Write the witness to a YAML file."""
+    path = Path(path).expanduser()          # lets you use "~/..."
+    path.parent.mkdir(parents=True, exist_ok=True)  # create missing folders
     with open(path, "w") as f:
-        # sort_keys=False keeps the order we built (readable output).
-        # default_flow_style=False gives block style instead of {a: b}.
         yaml.safe_dump(witness, f, sort_keys=False, default_flow_style=False)
 
-def generateWitnessYml(filepath, producer=None, version=None, input_files=None, spec=None):
+def generateWitnessYml(filepath, producer=None, version=None, input_files=None, spec=None, segments=None):
 
     meta = metadata(producer=producer, version=version, input_files=input_files, spec=spec)
-    witness = violation_witness(meta,)
+    witness = violation_witness(meta, segments)
     return dump(witness, filepath)

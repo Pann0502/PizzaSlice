@@ -1,6 +1,5 @@
 class Location:
 
-
     def __init__(self, file, line, column=None, function=None):
         self.file = file
         self.line = line
