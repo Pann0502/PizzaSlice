@@ -1,0 +1,206 @@
+---
+"$schema": https://json-schema.org/draft/2020-12/schema
+title: Format for Correctness Witnesses, version 2.0
+type: array
+description: |
+  This schema describes the YAML format for correctness witnesses.
+
+  A correctness witness consists of one or more entries of type `invariant_set`.
+
+  If there are more than one entries of type `invariant_set`, or
+  if there are more than one loop or location invariants in the content,
+  the order of their occurrence is not important.
+
+  A correctness witness is syntactically valid if it fulfills the below syntactical requirements.
+
+  The correctness witness is semantically valid if it is syntactically valid and
+  it fulfills the following semantical requirements.
+
+  - For each `loop_invariant`, the invariant must hold on every execution of the program
+    whenever the condition of the corresponding iteration statement is going to be evaluated.
+  - For each `location_invariant`, the invariant must hold on every execution of the program
+    whenever the execution is going to pass the statement or declaration inside a compound statement 
+    that the invariant points to.
+  - The specification must be satisfied for all program executions.
+
+items:
+  type: object
+  required:
+  - entry_type
+  - metadata
+  - content
+  description: |
+    Each entry consists of three key-value pairs, namely the key `entry_type` with value `invariant_set`,
+    the key metadata, and the key content.
+  properties:
+    entry_type:
+      type: string
+      enum:
+      - invariant_set
+      description: |
+        The `entry_type` defines what content is available in the content field.
+        The only allowed entry type for a correctness witness is `invariant_set`.
+    metadata:
+      type: object
+      required:
+      - format_version
+      - uuid
+      - creation_time
+      - producer
+      - task
+      description: |
+        The meta data describe the provenance of the data.
+      properties:
+        format_version:
+          type: string
+          description: |
+            The `version` of the format is given as a string (currently "2.0").
+        uuid:
+          type: string
+          format: uuid
+          description: |
+            The `uuid` is a unique identifier of the entry;
+            it uses the UUID format defined in RFC4122.
+        creation_time:
+          type: string
+          format: date-time
+          description: |
+            The `creation_time` describes the date and time when the entry was created;
+            it uses the format given by ISO 8601.
+        producer:
+          type: object
+          required:
+          - name
+          - version
+          description: |
+            The key `producer` describes the tool that produced the entry.
+          properties:
+            name:
+              type: string
+              description: |
+                The name of the tool that produced the witness.
+            version:
+              type: string
+              description: |
+                The version of the tool.
+            configuration:
+              type: string
+              description: |
+                The configuration in which the tool ran.
+            command_line:
+              type: string
+              description: |
+                The command line with which the tool ran;
+                it should be a bash-compliant command.
+            description:
+              type: string
+              description: |
+                Any information not fitting in the previous items.
+        task:
+          type: object
+          required:
+          - input_files
+          - input_file_hashes
+          - specification
+          - data_model
+          - language
+          description: |
+            The task describes the verification task to which the entry is related.
+          properties:
+            input_files:
+              type: array
+              items:
+                type: string
+              description: |
+                The list of files given as input to the verifier,
+                e.g. ["path/f1.c", "path/f2.c"].
+            input_file_hashes:
+              type: object
+              additionalProperties:
+                type: string
+              description: |
+                The SHA-256 hashes of all files in input_files,
+                e.g. {"path/f1.c": 511..., "path/f2.c": f70...}
+            specification:
+              type: string
+              description: |
+                The specification considered by the verifier;
+                it uses the SV-COMP format given at
+                https://sv-comp.sosy-lab.org/2023/rules.php.
+            data_model:
+              enum:
+              - ILP32
+              - LP64
+              description: |
+                The data model assumed for the input program.
+            language:
+              enum:
+              - C
+              description: |
+                The programming language of the input files;
+                the format currently supports only C.
+    content:
+      type: array
+      description: |
+        The content represents the semantical content of the correctness witness.
+        It is a sequence of one or more invariant elements.
+      items:
+        type: object
+        required:
+        - invariant
+        properties:
+          invariant:
+            type: object
+            required:
+            - type
+            - location
+            - value
+            - format
+            description: |
+              The key `invariant` is the basic building block of correctness witnesses.
+              It is a mapping that describes one invariant.
+            properties:
+              type:
+                type: string
+                enum:
+                - loop_invariant
+                - location_invariant
+                description: |
+                  The type has the value `loop_invariant` for iteration statements, or `location_invariant` for arbitrary statements.
+                  It specifies the type of the invariant.
+              location:
+                type: object
+                required:
+                - file_name
+                - line
+                description: |
+                  The location points to the first keyword character in a source file.
+                  More specifically, the location of a loop invariant must point to the first keyword
+                  (for, while, do) character of an iteration statement,
+                  while the location of a location invariant must point to the first character of an arbitrary 
+                  statement or a declaration that is within a compound statement.
+                  If column is not given, it is assumed to match the leftmost suitable position.
+                properties:
+                  file_name:
+                    type: string
+                  line:
+                    type: integer
+                    minimum: 1
+                  column:
+                    type: integer
+                    minimum: 1
+                  function:
+                    type: string
+              value:
+                type: string
+                description: |
+                  The key `value` holds the actual invariant string
+                  (e.g., "s <= i*255 && 0 <= i && i <= 255 && n <= 255").
+                  The invariant value must be a side-effect-free C expression (the only supported format for invariants so far)
+                  over variables in the scope of the statement or declaration inside a compound statement to which the location points.
+              format:
+                type: string
+                enum:
+                - c_expression
+                description: |
+                  The format specifies the format of the invariant string (e.g., `c_expression`).

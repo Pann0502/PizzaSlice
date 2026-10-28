@@ -1,0 +1,6 @@
+.venv/
+.idea/
+.vscode/
+output/
+theta/
+theta-backup/
