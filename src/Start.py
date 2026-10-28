@@ -1,8 +1,10 @@
+import glob
+import os
 import sys
 
 from c_parser.cParser import analyze_program
 from c_parser.visitor import NodeVisitor
-from witness_generator.astConverterToSegment import SegmentList
+from witness_generator.segmentList import SegmentList
 from witness_generator.witnessGenerator import *
 
 if __name__ == "__main__":
@@ -12,6 +14,10 @@ if __name__ == "__main__":
         sys.exit(1)
 
     c_file = sys.argv[1]
+
+    # Clean up old witness files before generating new ones
+    for old_file in glob.glob("witness_*.yml"):
+        os.remove(old_file)
 
     with open(c_file, "r", encoding="utf-8-sig") as f:
         source = f.read()

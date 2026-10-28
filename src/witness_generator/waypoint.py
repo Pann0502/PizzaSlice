@@ -39,6 +39,8 @@ class Waypoint:
         match self.type_:
             case type.assumption:            # `type` is now the enum class
                 self.fmt = "c_expression"
+            case type.branching:
+                self.fmt = "c_expression"
             case type.function_return:       # was function_enter
                 self.fmt = "ext_c_expression"
             case _:

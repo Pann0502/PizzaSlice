@@ -10,6 +10,11 @@ class SegmentList:
     def to_dict(self):
         return [s.to_dict() for s in self.segments]
 
+    def copy(self):
+        other = SegmentList()
+        other.segments = list(self.segments)
+        return other
+
     @staticmethod
     def _is_final(segment):
         return any(w.type_ == type.target for w in segment.waypoints)
