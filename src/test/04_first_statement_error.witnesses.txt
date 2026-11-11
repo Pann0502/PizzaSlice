@@ -1,0 +1,6 @@
+count: 1
+W1: target(T)
+
+notes:
+  - B1 comes after the target and does not gate it, so it is not pinned.
+  - Confirms the tool anchors on the target and ignores downstream branches.

@@ -1,0 +1,5 @@
+count: 1
+W1: branch(B1=F) -> target(T)
+
+notes:
+  - The else-branch is the false edge of B1.

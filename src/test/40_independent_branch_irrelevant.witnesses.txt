@@ -1,0 +1,7 @@
+count: 1
+W1: branch(B2=T) -> target(T)
+
+notes:
+  - ASSUMPTION (README q1): B1 is left free because it does not gate T.
+  - A splitter that naively crosses all branches would wrongly emit 2
+    witnesses (B1=T,B2=T and B1=F,B2=T). That is complete but over-split.

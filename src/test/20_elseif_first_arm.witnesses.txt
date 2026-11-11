@@ -1,0 +1,5 @@
+count: 1
+W1: branch(B1=T) -> target(T)
+
+notes:
+  - B2 is not reached when B1 is true, so it is not pinned.

@@ -1,0 +1,10 @@
+count: 1
+W1: branch(B1=T) -> target(T)
+
+notes:
+  - ASSUMPTION (README q2): pin the controllable branch B1, which forces x==1.
+  - Also sound: W1: branch(B2=T) -> target(T), pinning only the derived guard.
+  - Also sound: pin both, branch(B1=T) -> branch(B2=T) -> target(T).
+  - The interesting check: the tool should NOT emit a witness with B1=F here,
+    because that path cannot satisfy B2. If it emits one, it over-splits and
+    the extra witness is infeasible.

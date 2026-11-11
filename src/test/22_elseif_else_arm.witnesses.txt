@@ -1,0 +1,5 @@
+count: 1
+W1: branch(B1=F) -> branch(B2=F) -> target(T)
+
+notes:
+  - The final else is the all-false path through the chain.

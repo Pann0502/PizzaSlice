@@ -1,0 +1,5 @@
+count: 1
+W1: case(B1=1) -> target(T)
+
+notes:
+  - A switch is a multi-way branch. Only the x==1 edge reaches T.

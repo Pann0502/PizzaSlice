@@ -1,0 +1,12 @@
+count: 1
+W1: target(T)
+
+notes:
+  - ASSUMPTION (README q4): B1 is in a loop, so it is left free, even though
+    the break gates loop exit and thus the error. One target-only witness.
+  - This is the case most likely to be wrong for your intent. A loop-exit branch
+    behaves like a gate on everything after the loop. If you want exits pinned,
+    the expected output becomes: W1: branch(B1=T) -> target(T), with B1=T read
+    as "the break is taken on some iteration".
+  - Contrast with 80, where the gating branch sits AFTER the loop and is pinned
+    without any ambiguity.

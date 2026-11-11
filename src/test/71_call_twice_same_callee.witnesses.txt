@@ -1,0 +1,13 @@
+count: 2
+W1: enter(foo@C1) -> branch(B1=T) -> target(T)
+W2: enter(foo@C2) -> branch(B1=T) -> target(T)
+
+notes:
+  - The two witnesses share the same in-callee branch but differ by call site.
+  - Without the call-site (function-enter) waypoint the two are indistinguishable
+    and the split is not truly complete-with-context. This is the reason the
+    draft calls out this case as the motivation for witness-based splitting.
+  - In W2, the first call (C1) returns without error. A full witness may also
+    need to express "foo at C1 took B1=F" to be concrete. Open question: does
+    the tool pin the earlier non-erroring call, or leave it free? I left it
+    free. Flag if you want it pinned.

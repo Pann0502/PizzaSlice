@@ -1,0 +1,6 @@
+count: 1
+W1: branch(B1=T) -> target(T)
+
+notes:
+  - The loop condition is not treated as a branching waypoint: no unrolling.
+  - The only split is the post-loop branch B1. The loop is passed through.

@@ -1,0 +1,6 @@
+count: 1
+W1: branch(B1=T) -> enter(foo@C1) -> branch(B2=T) -> target(T)
+
+notes:
+  - The witness threads caller branch, call boundary, and callee branch in order.
+  - Interprocedural gating: B1 (caller) and B2 (callee) both gate T.

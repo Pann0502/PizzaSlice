@@ -1,0 +1,8 @@
+count: 1
+W1: target(T)
+
+notes:
+  - Same assumption as 81 (in-loop branch left free).
+  - do-while guarantees one iteration. If your tool ever DID unroll the first
+    guaranteed iteration, this is where that would show up. Under no-unroll,
+    the expected set is identical to a while/for version.

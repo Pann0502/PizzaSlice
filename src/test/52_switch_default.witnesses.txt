@@ -1,0 +1,6 @@
+count: 1
+W1: case(B1=default) -> target(T)
+
+notes:
+  - ASSUMPTION (README q7): the default edge is the complement of the listed
+    cases, i.e. x not in {1, 2}. The witness expresses "default", not a value.

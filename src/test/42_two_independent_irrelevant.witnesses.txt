@@ -1,0 +1,6 @@
+count: 1
+W1: target(T)
+
+notes:
+  - ASSUMPTION (README q1): both branches free, one target-only witness.
+  - Full enumeration would give 4 witnesses (2x2). All complete, all redundant.

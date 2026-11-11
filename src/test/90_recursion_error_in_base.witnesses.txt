@@ -1,0 +1,12 @@
+count: 1
+W1: enter(foo@C1) -> branch(B1=F) -> target(T)
+
+notes:
+  - ASSUMPTION (README q5): recursion depth is abstracted. The single witness
+    pins "foo reaches its base case (B1=F) at some depth", not a fixed depth.
+  - ASSUMPTION (README q6): B2 in main is dead code, because foo() never returns
+    (every path recurses or aborts). The tool must NOT emit a witness that routes
+    through B2. If it does, it has treated an infeasible path as feasible.
+  - If you actually want foo() to be able to return (so B2 is live), add a third
+    path to foo (e.g. a second nondet that returns). Tell me and I will add it
+    as 93.

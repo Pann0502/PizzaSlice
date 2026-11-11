@@ -1,0 +1,11 @@
+count: 1
+W1: target(T)
+
+notes:
+  - ASSUMPTION (README q3): the in-loop branch B1 is NOT a splitting point.
+    The witness carries only the target, matching the draft's "ignore this if".
+  - Alternative, if you decide an in-loop branch may be pinned once (without an
+    iteration index): W1: branch(B1=T) -> target(T). This stays sound only if
+    the witness semantics read B1=T as "on some iteration", not "on iteration k".
+  - This is the sharpest loop question in the suite. The right answer depends on
+    how your witness format quantifies a branch inside a loop.

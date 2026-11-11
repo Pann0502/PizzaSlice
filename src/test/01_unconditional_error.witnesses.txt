@@ -1,0 +1,6 @@
+count: 1
+W1: target(T)
+
+notes:
+  - No branch gates the error, so no branching waypoint is needed.
+  - This is the degenerate lower bound: a target-only witness.

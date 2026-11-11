@@ -1,0 +1,11 @@
+count: 1
+W1: enter(is_even@C1) -> branch(B_even=T) -> target(T)
+
+notes:
+  - ASSUMPTION (README q5): depth abstracted. The witness pins "is_even hits its
+    base case (n==0)", which corresponds to an even original n, without unrolling
+    the is_even/is_odd alternation.
+  - Stretch value: checks the tool follows calls across two mutually recursive
+    functions, not only direct self-recursion.
+  - If the enter waypoint must name the full call chain rather than just the
+    outermost site, this case is where that requirement surfaces.

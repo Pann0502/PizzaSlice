@@ -1,0 +1,9 @@
+count: 0
+
+notes:
+  - The guard is constant false, so T is unreachable and the set is empty.
+  - Design question: does the splitter do reachability pruning itself, or
+    does it emit branch(B1=T)->target(T) and rely on the downstream verifier
+    to report the witness as spurious? The strict-complete answer is 0.
+  - Mirror case worth adding later: if(1){error} - constant true, which
+    collapses to a target-only witness like 01.

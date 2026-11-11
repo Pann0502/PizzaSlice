@@ -1,0 +1,5 @@
+count: 1
+W1: branch(B1=T) -> target(T)
+
+notes:
+  - Only the then-branch reaches the error, so only B1=T is covered.

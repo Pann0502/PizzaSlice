@@ -1,0 +1,8 @@
+count: 2
+W1: branch(B1=T) -> enter(err@C1) -> target(T)
+W2: branch(B2=T) -> enter(err@C2) -> target(T)
+
+notes:
+  - The two guards are independent. Reaching T needs B1=T OR B2=T.
+  - W1 does not pin B2 and W2 does not pin B1: each guard is only relevant on
+    its own path. The call-site waypoint is what keeps the two apart.

@@ -1,0 +1,7 @@
+count: 1
+W1: enter(foo@C1) -> branch(B1=T) -> target(T)
+
+notes:
+  - The branch inside the callee is pinned. With one call site the enter
+    waypoint is arguably optional, but keeping it makes the witness uniform
+    with the multi-call-site cases (61, 71).

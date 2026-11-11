@@ -1,0 +1,10 @@
+count: 2
+W1: branch(B1=T) -> branch(B2=T) -> enter(err@C1) -> target(T)
+W2: branch(B1=F) -> branch(B3=T) -> enter(err@C2) -> target(T)
+
+notes:
+  - One target, two feasible path-classes. Neither witness alone is complete.
+  - The two witnesses differ in the call site (C1 vs C2). If witnesses omit the
+    call-site/function-enter waypoint, W1 and W2 look identical at the target
+    and the set under-specifies which path is meant.
+  - This is the core argument for splitting by witnesses over slicing.

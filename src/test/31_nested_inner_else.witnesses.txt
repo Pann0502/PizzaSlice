@@ -1,0 +1,5 @@
+count: 1
+W1: branch(B1=T) -> branch(B2=F) -> target(T)
+
+notes:
+  - Mixed polarity: outer true, inner false.

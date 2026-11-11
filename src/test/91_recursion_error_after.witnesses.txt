@@ -1,0 +1,12 @@
+count: 1
+W1: target(T)
+
+notes:
+  - The error is unconditional once main continues, so neither B1 (in foo) nor
+    B2 (in main) gates it. Target-only witness.
+  - Subtlety: to REACH the target, foo() must terminate, i.e. the recursion must
+    bottom out at B1=F. Under no-unroll we do not pin that; we assume termination
+    on the path to the target. If your semantics require an explicit "recursion
+    returns" marker, that is the one extra waypoint to consider.
+  - Good contrast with 90: same recursion shape, but the error's placement moves
+    it from "inside the recursion" to "after it".

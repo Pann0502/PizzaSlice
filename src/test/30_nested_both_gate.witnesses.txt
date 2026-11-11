@@ -1,0 +1,5 @@
+count: 1
+W1: branch(B1=T) -> branch(B2=T) -> target(T)
+
+notes:
+  - Conjunctive gating: one witness with two branching waypoints, ordered.

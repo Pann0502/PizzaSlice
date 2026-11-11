@@ -1,0 +1,5 @@
+count: 0
+
+notes:
+  - There is no target, so the complete set is empty.
+  - B1 must NOT produce any witness: no path reaches an error.

@@ -1,0 +1,9 @@
+count: 2
+W1: case(B1=1) -> target(T)
+W2: case(B1=2) -> target(T)
+
+notes:
+  - Fall-through means two distinct selector values reach one target.
+  - This is a multi-witness case driven by a switch, not by an if.
+  - A splitter that keys only on the case label holding the statement would
+    miss W1 (x==1). It must follow fall-through to be complete.
